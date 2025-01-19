@@ -1,0 +1,9 @@
+[
+  {
+    "outputPath": "wwwroot/bundler.min.js",
+    "sourceFolders": [
+      "Scripts"
+    ],
+    "fileType": "js"
+  }
+]

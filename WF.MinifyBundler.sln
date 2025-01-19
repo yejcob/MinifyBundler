@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WF.MinifyBundler", "WF.MinifyBundler\WF.MinifyBundler.csproj", "{A12B0878-CA07-4F97-B4EA-F97A0AAD29F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WF.MinifyBundler.Tests", "WF.MinifyBundler.Tests\WF.MinifyBundler.Tests.csproj", "{5282FA9E-362F-431F-8513-FC9C09645911}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A12B0878-CA07-4F97-B4EA-F97A0AAD29F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A12B0878-CA07-4F97-B4EA-F97A0AAD29F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A12B0878-CA07-4F97-B4EA-F97A0AAD29F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A12B0878-CA07-4F97-B4EA-F97A0AAD29F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5282FA9E-362F-431F-8513-FC9C09645911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5282FA9E-362F-431F-8513-FC9C09645911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5282FA9E-362F-431F-8513-FC9C09645911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5282FA9E-362F-431F-8513-FC9C09645911}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
