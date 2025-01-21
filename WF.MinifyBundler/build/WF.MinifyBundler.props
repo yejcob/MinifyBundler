@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <CompilerSettingsJson Condition="'$(CompilerSettingsFile)' == ''">$(ProjectDir)compilerSettings.json</CompilerSettingsJson>
-        <Net8CompilerTasksAssembly Condition="'$(Net8CompilerTasksAssembly)' == ''">$(MSBuildThisFileDirectory)..\lib\net8.0\WF.MinifyBundler.dll</Net8CompilerTasksAssembly>
-        <Net9CompilerTasksAssembly Condition="'$(Net9CompilerTasksAssembly)' == ''">$(MSBuildThisFileDirectory)..\lib\net9.0\WF.MinifyBundler.dll</Net9CompilerTasksAssembly>
+        <Net8CompilerTasksAssembly Condition="'$(Net8CompilerTasksAssembly)' == ''">..\lib\net8.0\WF.MinifyBundler.dll</Net8CompilerTasksAssembly>
+        <Net9CompilerTasksAssembly Condition="'$(Net9CompilerTasksAssembly)' == ''">..\lib\net9.0\WF.MinifyBundler.dll</Net9CompilerTasksAssembly>
     </PropertyGroup>
     
 </Project>
