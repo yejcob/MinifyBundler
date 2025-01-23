@@ -23,8 +23,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore -c Release --output nupkgs
+      run: dotnet build --no-restore -c Release
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Publish nuget package
-      run: dotnet nuget push nupkgs/*.nupkg -k ${{ secrets.NUGETKEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push **.nupkg -k ${{ secrets.NUGETKEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
