@@ -1,20 +1,19 @@
 <Project>
 
-    <UsingTask TaskName="WF.MinifyBundler.Bundler" AssemblyFile="$(Net8CompilerTasksAssembly)" Condition="'$(TargetFramework)'=='net8.0'" />
-    <UsingTask TaskName="WF.MinifyBundler.Bundler" AssemblyFile="$(Net9CompilerTasksAssembly)" Condition="'$(TargetFramework)'=='net9.0'"/>
+    <UsingTask TaskName="WF.MinifyBundler.Bundler" AssemblyFile="$(CompilerTasksAssembly)"/>
 
     <Target Name="Compile Static Web Assets"
             BeforeTargets="Build;ResolveScopedCssInputs;BundleMinify;ResolveProjectStaticWebAssets"
             Condition="'$(DesignTimeBuild)' != 'true'">
-        
+
         <Bundler CompilerSettingsFile="$(CompilerSettingsJson)">
             <Output TaskParameter="GeneratedFiles" ItemName="GeneratedFiles"/>
         </Bundler>
 
         <ItemGroup>
-            <None Remove="@(GeneratedFiles)" />
-            <_NewCompiledFiles Include="@(GeneratedFiles)" Exclude="@(Content)" />
-            <Content Include="@(_NewCompiledFile)" />
+            <None Remove="@(GeneratedFiles)"/>
+            <_NewCompiledFiles Include="@(GeneratedFiles)" Exclude="@(Content)"/>
+            <Content Include="@(_NewCompiledFile)"/>
         </ItemGroup>
     </Target>
 
