@@ -1,5 +1,6 @@
 namespace WF.MinifyBundler.Tests;
 
+[TestFixture]
 public class FileWrapperTests
 {
     private readonly FileWrapper _fileIo = new();
@@ -16,12 +17,12 @@ public class FileWrapperTests
         Assert.That(_fileIo.Exists("Scripts/non_existing_file.js"), Is.False);
     }
 
-    // [Test]
-    // public void Then_GetFiles_should_return_correct()
-    // {
-    //     var actual = _fileIo.GetFiles("Scripts", "js");
-    //     Assert.That(actual.Select(x => x.Name), Is.EquivalentTo(["existing_file.js"]));
-    // }
+    [Test]
+    public void Then_GetFiles_should_return_correct()
+    {
+        var actual = _fileIo.GetFiles("Scripts", "js");
+        Assert.That(actual.Select(x => x.Name), Is.EquivalentTo(["existing_file.js"]));
+    }
 
     [Test]
     public void Then_GetLastWriteTime_should_return_correct()
