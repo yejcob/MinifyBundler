@@ -8,7 +8,7 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <IsPackable>true</IsPackable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>1.0.3</Version>
+        <Version>1.0.3-preview1</Version>
         <Title>WF.MinifyBundler</Title>
         <Authors>WebFox</Authors>
         <Description>Bundle your javascript and css files easy</Description>
