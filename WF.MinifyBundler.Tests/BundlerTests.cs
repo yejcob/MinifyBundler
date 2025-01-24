@@ -1,5 +1,4 @@
 using Microsoft.Build.Framework;
-using Microsoft.Extensions.Time.Testing;
 using NSubstitute;
 
 namespace WF.MinifyBundler.Tests;
@@ -15,7 +14,6 @@ public class BundlerTests
     private readonly DateTime _oldContentTime = DateTime.Parse("2025-01-15 12:20").ToUniversalTime();
     private readonly Bundler _bundler = new(){CompilerSettingsFile = CompilerSettingsFile};
     private readonly IBuildEngine _buildEngine = Substitute.For<IBuildEngine>();
-    private readonly FakeTimeProvider _timeProvider = new();
     private readonly IFileWrapper _fileWrapper = Substitute.For<IFileWrapper>();
 
     [OneTimeSetUp]
@@ -23,7 +21,6 @@ public class BundlerTests
     {
         _bundler.BuildEngine = _buildEngine;
         _bundler.FileWrapper = _fileWrapper;
-        _bundler.TimeProvider = _timeProvider;
         _fileWrapper.Exists(CompilerSettingsFile).Returns(true);
         _fileWrapper.ReadAllText(CompilerSettingsFile).Returns(File.ReadAllText(CompilerSettingsFile));
         _fileWrapper.GetLastWriteTime(Destination).Returns(_destinationTime);
@@ -50,7 +47,7 @@ public class BundlerTests
     [Test]
     public void Should_do_nothing_when_file_is_up_to_date()
     {
-        _timeProvider.SetUtcNow(new DateTimeOffset(_oldContentTime));
+        _bundler.TimeProvided = _oldContentTime;
         _fileWrapper.Exists(Destination).Returns(true);
 
         _bundler.Execute();
@@ -61,7 +58,7 @@ public class BundlerTests
     [Test]
     public void Should_update_file_when_existing_and_has_new_content()
     {
-        _timeProvider.SetUtcNow(new DateTimeOffset(_newContentTime));
+        _bundler.TimeProvided = _newContentTime;
         _fileWrapper.Exists(Destination).Returns(true);
 
         _bundler.Execute();

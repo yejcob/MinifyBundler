@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <CompilerSettingsJson Condition="'$(CompilerSettingsFile)' == ''">$(ProjectDir)compilerSettings.json</CompilerSettingsJson>
-        <CompilerTasksAssembly Condition="'$(CompilerTasksAssembly)' == ''">$(MSBuildThisFileDirectory)..\lib\$(TargetFramework)\WF.MinifyBundler.dll</CompilerTasksAssembly>
+        <CompilerTasksAssembly Condition="'$(CompilerTasksAssembly)' == ''">$(MSBuildThisFileDirectory)..\lib\netstandard2.0\WF.MinifyBundler.dll</CompilerTasksAssembly>
     </PropertyGroup>
     
 </Project>
