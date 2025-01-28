@@ -1,5 +1,6 @@
 namespace WF.MinifyBundler.Tests;
 
+[TestFixture]
 public class FileWrapperTests
 {
     private readonly FileWrapper _fileIo = new();

@@ -8,8 +8,8 @@ internal sealed class Compressor
     private int _currentChar;
     private int _nextChar;
     private int _lookahead = Eof;
-    private readonly TextReader _reader;
-    private readonly TextWriter _writer;
+    private readonly TextReader? _reader;
+    private readonly TextWriter? _writer;
 
     public static string Compress(string source)
     {
@@ -20,8 +20,11 @@ internal sealed class Compressor
 
     private static void Compress(TextReader reader, TextWriter writer)
     {
-        ArgumentNullException.ThrowIfNull(reader);
-        ArgumentNullException.ThrowIfNull(writer);
+        if (reader == null)
+            throw new ArgumentNullException(nameof(reader));
+
+        if (writer == null)
+            throw new ArgumentNullException(nameof(writer));
 
         var compressor = new Compressor(reader, writer);
         compressor.Compress();
@@ -99,10 +102,10 @@ internal sealed class Compressor
 
     private int GetNextCharacter()
     {
-        int ch = _lookahead;
+        var ch = _lookahead;
         _lookahead = Eof;
 
-        return ch == Eof ? _reader.Read() : ch;
+        return ch == Eof ? _reader!.Read() : ch;
     }
 
     private int PeekNextCharacter()
@@ -112,7 +115,7 @@ internal sealed class Compressor
 
     private int ReadNextCharacter()
     {
-        int ch = GetNextCharacter();
+        var ch = GetNextCharacter();
         return ch == '/' ? HandleSlash() : ch;
     }
 
@@ -224,7 +227,7 @@ internal sealed class Compressor
         _nextChar = ReadNextCharacter();
     }
 
-    private void WriteCharacter(int ch) => _writer.Write((char)ch);
+    private void WriteCharacter(int ch) => _writer!.Write((char)ch);
 
     private static bool IsAlphanumeric(int ch)
     {

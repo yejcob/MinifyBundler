@@ -1,22 +1,22 @@
 using System.Runtime.Serialization;
 using System.Text;
-using System.Text.Json;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
+using Newtonsoft.Json;
 using Task = Microsoft.Build.Utilities.Task;
 
 namespace WF.MinifyBundler;
 
 public class Bundler : Task
 {
-    public TimeProvider TimeProvider { get; set; } = TimeProvider.System;
+    public DateTime TimeProvided { get; set; } = DateTime.UtcNow;
     public IFileWrapper FileWrapper { get; set; } = new FileWrapper();
 
-    public required string CompilerSettingsFile { get; init; }
+    public string CompilerSettingsFile { get; set; } = null!;
 
     [Output] public ITaskItem[] GeneratedFiles { get; private set; } = [];
 
-    private List<CompilerOptions> _compilerOptions = [];
+    private IEnumerable<CompilerOptions> _compilerOptions = [];
     private readonly List<ITaskItem> _generatedFiles = [];
 
     public override bool Execute()
@@ -32,7 +32,7 @@ public class Bundler : Task
                 sourceFiles.AddRange(FileWrapper.GetFiles(sourceFolder, compilerOption.FileType));
             }
 
-            var maxSourceWriteTime = TimeProvider.GetUtcNow().DateTime;
+            var maxSourceWriteTime = TimeProvided;
 
             maxSourceWriteTime = sourceFiles.Aggregate(maxSourceWriteTime, (current, sourceFile) => sourceFile.LastWriteTime > current ? sourceFile.LastWriteTime : current);
 
@@ -76,20 +76,20 @@ public class Bundler : Task
             var text = File.ReadAllText(CompilerSettingsFile);
             if (!string.IsNullOrWhiteSpace(text))
             {
-                _compilerOptions = JsonSerializer.Deserialize(text, CompilerOptionsContext.Default.ListCompilerOptions)!;
+                _compilerOptions = JsonConvert.DeserializeObject<IEnumerable<CompilerOptions>>(text)!;
             }
             else
             {
-                Log.LogWarning("compilersettings.json exists but is empty, ignoring it.");
+                Log.LogWarning("compilerSettings.json exists but is empty, ignoring it.");
             }
         }
         catch (SerializationException ex)
         {
-            Log.LogError("compilersettings.json is invalid: {0}", ex.Message);
+            Log.LogError("compilerSettings.json is invalid: {0}", ex.Message);
         }
         catch (Exception ex)
         {
-            Log.LogError("Unable to read compilersettings.json: {0}", ex.ToString());
+            Log.LogError("Unable to read compilerSettings.json: {0}", ex.ToString());
         }
     }
 
@@ -102,7 +102,7 @@ public class Bundler : Task
             var fileText = FileWrapper.ReadAllText(sourceFile.FullName);
             bundled.Append(fileText);
         }
-
+        
         var compressed = Compressor.Compress(bundled.ToString());
         FileWrapper.WriteAllText(destinationFile, compressed);
     }

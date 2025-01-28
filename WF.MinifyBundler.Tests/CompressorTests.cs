@@ -48,7 +48,7 @@ public class CompressorTests
     {
         const string input = "var str = \"Hello;";
         
-        var ex = Assert.Throws<Compressor.CompressionException>(() => Compressor.Compress(input));
+        var ex = Assert.Throws<Compressor.CompressionException>(() => Compressor.Compress(input))!;
         Assert.That(ex.Message, Contains.Substring("Unterminated string"));
     }
 
@@ -57,7 +57,7 @@ public class CompressorTests
     {
         const string input = "var x = 5; /* This is an unterminated comment ";
         
-        var ex = Assert.Throws<Compressor.CompressionException>(() => Compressor.Compress(input));
+        var ex = Assert.Throws<Compressor.CompressionException>(() => Compressor.Compress(input))!;
         Assert.That(ex.Message, Is.EqualTo("Unterminated comment."));
     }
 
