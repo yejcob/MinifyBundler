@@ -25,6 +25,19 @@ public class BundlerTests
         _fileWrapper.ReadAllText(CompilerSettingsFile).Returns(File.ReadAllText(CompilerSettingsFile));
         _fileWrapper.GetLastWriteTime(Destination).Returns(_destinationTime);
         _fileWrapper.GetFiles(SourceDirectory, "js").Returns([new FileInfo("Scripts/existing_file.js") { LastWriteTime = _oldContentTime }]);
+        _fileWrapper.ReadAllText(Arg.Any<string>()).Returns("""
+                                                            function F(){
+                                                                console.log('hejsan');
+                                                            }
+                                                            
+                                                            /*function K(){
+                                                                console.log('hello');
+                                                            }*/
+                                                            
+                                                            function K(){
+                                                                console.log('hello');
+                                                            }
+                                                            """);
     }
 
     [SetUp]

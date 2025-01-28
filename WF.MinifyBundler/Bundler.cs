@@ -1,8 +1,8 @@
 using System.Runtime.Serialization;
 using System.Text;
-using System.Text.Json;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
+using Newtonsoft.Json;
 using Task = Microsoft.Build.Utilities.Task;
 
 namespace WF.MinifyBundler;
@@ -76,7 +76,7 @@ public class Bundler : Task
             var text = File.ReadAllText(CompilerSettingsFile);
             if (!string.IsNullOrWhiteSpace(text))
             {
-                _compilerOptions = JsonSerializer.Deserialize<IEnumerable<CompilerOptions>>(text, JsonSerializerOptions.Web)!;
+                _compilerOptions = JsonConvert.DeserializeObject<IEnumerable<CompilerOptions>>(text)!;
             }
             else
             {
@@ -102,7 +102,7 @@ public class Bundler : Task
             var fileText = FileWrapper.ReadAllText(sourceFile.FullName);
             bundled.Append(fileText);
         }
-
+        
         var compressed = Compressor.Compress(bundled.ToString());
         FileWrapper.WriteAllText(destinationFile, compressed);
     }

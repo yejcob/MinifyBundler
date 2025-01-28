@@ -8,7 +8,7 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <IsPackable>true</IsPackable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>1.0.3-preview1</Version>
+        <Version>1.0.3</Version>
         <Title>WF.MinifyBundler</Title>
         <Authors>WebFox</Authors>
         <Description>Bundle your javascript and css files easy</Description>
@@ -27,7 +27,7 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.Build.Framework" Version="17.11.4" PrivateAssets="all"/>
         <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.11.4" PrivateAssets="all"/>
-        <PackageReference Include="System.Text.Json" Version="9.0.1" PrivateAssets="all"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup>
