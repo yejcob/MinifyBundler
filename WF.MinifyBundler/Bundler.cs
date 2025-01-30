@@ -103,7 +103,7 @@ public class Bundler : Task
             bundled.Append(fileText);
         }
         
-        var compressed = Compressor.Compress(bundled.ToString());
+        var compressed = JsMinifier.Minify(bundled.ToString());
         FileWrapper.WriteAllText(destinationFile, compressed);
     }
 }

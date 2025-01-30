@@ -20,8 +20,9 @@ public class FileWrapperTests
     [Test]
     public void Then_GetFiles_should_return_correct()
     {
+        var expected = Enumerable.Repeat<string>("existing_file.js", 1);
         var actual = _fileIo.GetFiles("Scripts", "js");
-        Assert.That(actual.Select(x => x.Name), Is.EquivalentTo(["existing_file.js"]));
+        Assert.That(actual.Select(x => x.Name), Is.EquivalentTo(expected));
     }
 
     [Test]
