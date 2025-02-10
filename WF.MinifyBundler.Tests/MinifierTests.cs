@@ -1,16 +1,8 @@
 namespace WF.MinifyBundler.Tests;
 
 [TestFixture]
-public class JsMinifierTests
+public class MinifierTests
 {
-    private JsMinifier _minifier;
-
-    [SetUp]
-    public void Setup()
-    {
-        _minifier = new JsMinifier();
-    }
-
     [Test]
     public void Minify_ShouldRemoveComments()
     {
@@ -26,7 +18,7 @@ public class JsMinifierTests
 
         const string expectedOutput = "function hello(){console.log('Hello, World!');}";
 
-        var result = JsMinifier.Minify(input);
+        var result = Minifier.Minify(input);
 
         Assert.That(result, Is.EqualTo(expectedOutput));
     }
@@ -37,7 +29,7 @@ public class JsMinifierTests
         const string input = "  function   test ( )   {  console.log ( 'Hello' ) ; }   ";
         const string expectedOutput = "function test(){console.log('Hello');}";
 
-        var result = JsMinifier.Minify(input);
+        var result = Minifier.Minify(input);
 
         Assert.That(result, Is.EqualTo(expectedOutput));
     }
@@ -48,7 +40,7 @@ public class JsMinifierTests
         const string input = "var name = \"World\"; console.log('Hello, ' + name);";
         const string expectedOutput = "var name=\"World\";console.log('Hello, '+name);";
 
-        var result = JsMinifier.Minify(input);
+        var result = Minifier.Minify(input);
 
         Assert.That(result, Is.EqualTo(expectedOutput));
     }
@@ -56,7 +48,7 @@ public class JsMinifierTests
     [Test]
     public void Minify_ShouldHandleEmptyInput()
     {
-        Assert.Throws<ArgumentException>(() => JsMinifier.Minify(""));
+        Assert.Throws<ArgumentException>(() => Minifier.Minify(""));
     }
 
     [Test]
@@ -70,7 +62,7 @@ public class JsMinifierTests
                              """;
         const string expectedOutput = "";
 
-        var result = JsMinifier.Minify(input);
+        var result = Minifier.Minify(input);
 
         Assert.That(result, Is.EqualTo(expectedOutput));
     }
@@ -90,7 +82,7 @@ public class JsMinifierTests
 
         const string expectedOutput = "function add(a,b){return a+b;}var result=add(5,10);console.log(result);";
 
-        var result = JsMinifier.Minify(input);
+        var result = Minifier.Minify(input);
 
         Assert.That(result, Is.EqualTo(expectedOutput));
     }
