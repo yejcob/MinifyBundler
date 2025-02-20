@@ -35,7 +35,7 @@ public static class Minifier
         // Remove spaces around operators (e.g., +, -, *, /, %, <, >, =, etc.)
         jsCode = Regex.Replace(jsCode, @"\s*([+\-*/%<>=!&|^])\s*", "$1");
         
-        jsCode = Regex.Replace(jsCode, @"}(?=\s*(window|document))", "};");
+        jsCode = Regex.Replace(jsCode, @"}(?=\s*(window|document|class))", "};");
 
     
         // Remove spaces around curly braces {}
