@@ -2,7 +2,6 @@ using System.Runtime.Serialization;
 using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
-using Newtonsoft.Json;
 using Task = Microsoft.Build.Utilities.Task;
 
 namespace WF.MinifyBundler;
@@ -76,7 +75,7 @@ public class Bundler : Task
             var text = File.ReadAllText(CompilerSettingsFile);
             if (!string.IsNullOrWhiteSpace(text))
             {
-                _compilerOptions = JsonConvert.DeserializeObject<IEnumerable<CompilerOptions>>(text)!;
+                _compilerOptions = ConfigParser.ParseJson(text);
             }
             else
             {
